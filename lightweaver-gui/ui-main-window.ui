@@ -467,7 +467,7 @@
      <x>0</x>
      <y>0</y>
      <width>572</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuTests">
@@ -489,6 +489,7 @@
     <addaction name="actionLineworld"/>
     <addaction name="actionLineWorldColor"/>
     <addaction name="actionPerfectImage"/>
+    <addaction name="actionColorLinesFull"/>
    </widget>
    <addaction name="menuTests"/>
    <addaction name="menuAbstract"/>
@@ -518,6 +519,11 @@
   <action name="actionPerfectImage">
    <property name="text">
     <string>perfectImage</string>
+   </property>
+  </action>
+  <action name="actionColorLinesFull">
+   <property name="text">
+    <string>colorLinesFull</string>
    </property>
   </action>
  </widget>

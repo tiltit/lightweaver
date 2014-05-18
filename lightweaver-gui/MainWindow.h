@@ -3,7 +3,7 @@
 #include <QColor>
 #include <QString>
 #include <QVector>
-#include "ui_mainwindow.h"
+#include "ui_ui-main-window.h"
 #include "motorcontrol.h"
 
 

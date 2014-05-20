@@ -26,6 +26,7 @@ MainWindow::MainWindow(QMainWindow *parent)
 	connect(actionLineworld, SIGNAL(triggered()), this, SLOT(actionLineWorldTriggered()));
 	connect(actionLineWorldColor, SIGNAL(triggered()), this, SLOT(actionLineWorldColorTriggered()));
 	connect(actionPerfectImage, SIGNAL(triggered()), this, SLOT(actionPerfectImageTriggered()));
+	connect(actionColorLinesFull, SIGNAL(triggered()), this, SLOT(actionColorLinesFullTriggered()));
 	
 	connect(openDeviceButton, SIGNAL(clicked()), this, SLOT(onOpenDeviceButtonClicked()));
 	connect(sendCommandsButton, SIGNAL(clicked()), this, SLOT(onSendCommandsButtonClicked()));
@@ -66,6 +67,11 @@ void MainWindow::actionLineWorldColorTriggered()
 void MainWindow::actionPerfectImageTriggered() 
 {
 	perfectImage();
+}
+
+void MainWindow::actionColorLinesFullTriggered()
+{
+	colorLinesFull();
 }
 
 void MainWindow::onOpenDeviceButtonClicked()

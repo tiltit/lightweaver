@@ -21,6 +21,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow
 		void lineWorld();
 		void lineWorldColor();
 		void perfectImage();
+		void colorLinesFull();
 		
 		
 	private slots:
@@ -39,6 +40,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow
 		void actionLineWorldColorTriggered();
 		void actionLineWorldTriggered();
 		void actionPerfectImageTriggered();
+		void actionColorLinesFullTriggered();
 		void onMotorControlCommandQueueDequeued(int queueSize);
 		void onFlushCommandsButtonClick();
 		void onToggleShutterButtonClicked();

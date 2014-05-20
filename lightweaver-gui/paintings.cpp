@@ -390,3 +390,90 @@ void MainWindow::perfectImage()
 
 	}
 }
+
+void MainWindow::colorLinesFull()
+{
+	QColor color;
+	QColor *pColor;
+	Mat image;
+	std::default_random_engine generator;
+	std::normal_distribution<double> onDistribution(30.0,10.0);
+
+	QVector<QColor*> *colorVector;
+	colorVector = computeGoldenRatioColors(0.01,0.99,1,100);
+
+	int x, y;
+
+	int number = 0;
+
+	int width, height;
+
+	int stepSizeX = 11;
+	int stepSizeY = 12;
+
+	QFileDialog *dialog = new QFileDialog();
+	dialog->setNameFilter("PNG Files (*.png)");
+	dialog->setOption(QFileDialog::ReadOnly);
+	//dialog->setOption(QFileDialog::DontUseNativeDialog);
+	dialog->setDirectory(".");
+	QStringList fileNames;
+	if (dialog->exec()) {
+		fileNames = dialog->selectedFiles();
+		QString fileName = fileNames.at(0);
+		image = imread(fileName.toStdString(), CV_LOAD_IMAGE_COLOR);
+		height = image.rows;
+		width = image.cols;
+
+
+			motorControl.openShutter();
+			motorControl.commandMotor1(3, 5);  // Go a few steps back
+			for (y=0;y!=height;++y) {
+				motorControl.commandMotor1(3, -5);  // Go a few steps forth
+				for(x=0;x!=width; x++) {
+					motorControl.setLedColor(color);
+					if (number<=0) {
+						number = int(onDistribution(generator));
+						pColor = colorVector->at(rand() % 100);
+					}
+
+					
+					color.setBlue((image.data[((y*image.cols)+x)*3] / 6 * 5) + ( pColor->blue() / 6 ));
+					color.setGreen((image.data[((y*image.cols)+x)*3+1] / 6 * 5)  + ( pColor->green() / 6));
+					color.setRed((image.data[((y*image.cols)+x)*3+2] / 6 * 5) + ( pColor->red() / 6));
+					motorControl.setLedColor(color);
+					
+
+					motorControl.commandMotor1(3, -stepSizeX);
+
+
+					number--;
+
+				}
+				motorControl.setLedColor(QColor(0,0,0));
+				motorControl.commandMotor1(3, stepSizeX * width);
+				motorControl.commandMotor1(3, 5);  // Go a few steps back
+
+				motorControl.commandMotor2(6, -stepSizeY);
+			}
+			motorControl.closeShutter();
+
+
+			// Reset x axis to initial position if the width is uneven
+			if( width%2 != 0) {
+				motorControl.commandMotor1(6, stepSizeX * width);
+			}
+
+			// Reset y axis to initial position
+			motorControl.commandMotor2(6, stepSizeY * height);
+
+			motorControl.releaseMotor1();
+			motorControl.releaseMotor2();
+
+
+	}
+}
+
+
+
+
+
